@@ -5,13 +5,20 @@
         b-icon(icon="newspaper-variant-multiple-outline")
         span OBJECTIVE NEWS
     template(#start='')
-      b-navbar-item(href='newsPaper')
+      b-navbar-item(href='/')
         | Home
+      b-navbar-item(href='/newsPaper')
+        | News Paper
+      b-navbar-item(href='/sales')
+        | Sales
       b-navbar-dropdown(label='Info')
-        b-navbar-item(href='about')
+        b-navbar-item(href='/about')
           | About
     template(#end='')
       b-navbar-item(tag='div')
+        //- .cart
+        //- nuxt-link(to="/cart")
+        //-   span Add to Cart
         .buttons
           a.button.is-info
             strong Sign up

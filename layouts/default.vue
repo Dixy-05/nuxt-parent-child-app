@@ -3,9 +3,9 @@
     navbar
     .container
       nuxt
-    footer.footer.has-sticky-footer
-      .has-text-centered
-        footer-content
+    .container
+      footer.has-text-centered
+          footer-content
 </template>
 
 <script>
@@ -24,3 +24,4 @@ export default {
   },
 }
 </script>
+<style></style>
