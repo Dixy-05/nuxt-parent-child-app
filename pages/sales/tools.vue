@@ -1,6 +1,6 @@
 <template lang="pug">
   .tools
-    section(v-if='load.tools')
+    section(v-if='tools')
       h1.title Tools
       .cards(v-for='(item,index) in items')
         nuxt-link(:to='item.path')
@@ -9,63 +9,70 @@
               .media
                 .media-left
                   figure.image.is-128x128
-                    img(:src="item.image" :alt='item.title')
+                    img(:src="item.image" :alt='item.name')
                 .media-content
                   p.title.is-4 {{item.brand}}
-                  p.subtitle.is-6 {{item.title}}
+                  p.subtitle.is-6 {{item.name}}
               .content
                 | Lorem ipsum dolor sit amet,
                 | Phasellus nec iaculis mauris.
               a @{{item.brand}}
-    section(v-if='!load.tools')
-      h1.title {{state.tool}}
-      nuxt-child(:tool="state.tool" :item="state.item")
+    section(v-if='!tools')
+      nuxt-child(:stock="stock" :item='state.item' @addToCart="(payload)=>$emit('addToCart',payload)")
 
 </template>
 <script>
 export default {
   name: 'toolsPage',
+  props: ['stock'],
   data() {
     return {
       state: {
-        tool: this.$route.params.tool,
         item: {},
-      },
-      load: {
-        tools: true,
       },
       items: [
         {
-          title: 'Hammer',
+          name: 'hammer',
           brand: 'Stanley',
           image: require('~/assets/hammer.jpg'),
           path: '/sales/tools/hammer',
+          price: 7,
         },
         {
-          title: 'Saw',
+          name: 'saw',
           brand: 'JON Bhandari Tools',
           image: require('~/assets/saw.jpg'),
           path: '/sales/tools/saw',
+          price: 10,
         },
         {
-          title: 'Pliers',
+          name: 'pliers',
           brand: 'Stanley',
           image: require('~/assets/pliers.jpg'),
           path: '/sales/tools/pliers',
+          price: 14,
         },
         {
-          title: 'Screwdrivers',
+          name: 'screwdrivers',
           brand: 'Stanley',
           image: require('~/assets/screwdrivers.jpg'),
           path: '/sales/tools/screwdrivers',
+          price: 15,
         },
       ],
     }
   },
+  mounted() {
+    console.log('tools is mounted')
+  },
   methods: {
     displayTool(item) {
-      this.load.tools = false
       this.state.item = item
+    },
+  },
+  computed: {
+    tools() {
+      return !this.$route.params.tool
     },
   },
 }
