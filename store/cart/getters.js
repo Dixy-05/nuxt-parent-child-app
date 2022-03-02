@@ -1,19 +1,20 @@
-import { uniq } from 'lodash'
+import { map, sum, uniq } from 'lodash'
 
 export default {
   getCart: (state) => {
-    return uniq(state.cart)
+    return uniq(state.cartItems)
   },
 
   cartTotalAmount: (state) => {
-    const prices = state.cart.map((item) => item.price)
-    if (prices.length) {
-      return prices.reduce((total = 0, num) => total + num)
-    } else {
+    let totalPrice = 0
+    state.cartItems.forEach((i) => {
+      totalPrice += i.price * i.quantity
       return 0
-    }
+    })
+
+    return totalPrice || 0
   },
   cartQuantity: (state) => {
-    return state.cart.length
+    return sum(map(state.cartItems, 'quantity'))
   },
 }

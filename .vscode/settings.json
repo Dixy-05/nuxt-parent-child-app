@@ -1,0 +1,37 @@
+{
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+  "eslint.workingDirectories": [],
+  "files.trimTrailingWhitespace": true,
+  "files.eol": "\n",
+  "git.autofetch": true,
+  "editor.tabSize": 2,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  // This one forces the tab to be **space**
+  "editor.insertSpaces": true,
+  "eslint.codeAction.showDocumentation": {
+    "enable": true
+  },
+  "[javascript]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.enableDebugLogs": true,
+  "eslint.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "prettier.vueIndentScriptAndStyle": true,
+  "prettier.singleQuote": true,
+  "editor.autoIndent": "full",
+  "prettier.requireConfig": true,
+  "prettier.trailingComma": "all",
+  "prettier.withNodeModules": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
