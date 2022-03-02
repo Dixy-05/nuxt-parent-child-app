@@ -2,7 +2,7 @@
   .tools
     section(v-if='tools')
       h1.title Tools
-      .cards(v-for='(item,index) in items')
+      .cards(v-for='(item,index) in Items')
         nuxt-link(:to='item.path')
           .card.mt-2(:key='`card-${index}`' @click="displayTool(item)")
             .card-content
@@ -22,6 +22,7 @@
 
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'toolsPage',
   props: ['stock'],
@@ -30,47 +31,18 @@ export default {
       state: {
         item: {},
       },
-      items: [
-        {
-          name: 'hammer',
-          brand: 'Stanley',
-          image: require('~/assets/hammer.jpg'),
-          path: '/sales/tools/hammer',
-          price: 7,
-        },
-        {
-          name: 'saw',
-          brand: 'JON Bhandari Tools',
-          image: require('~/assets/saw.jpg'),
-          path: '/sales/tools/saw',
-          price: 10,
-        },
-        {
-          name: 'pliers',
-          brand: 'Stanley',
-          image: require('~/assets/pliers.jpg'),
-          path: '/sales/tools/pliers',
-          price: 14,
-        },
-        {
-          name: 'screwdrivers',
-          brand: 'Stanley',
-          image: require('~/assets/screwdrivers.jpg'),
-          path: '/sales/tools/screwdrivers',
-          price: 15,
-        },
-      ],
     }
   },
-  mounted() {
-    console.log('tools is mounted')
-  },
+  // mounted() {
+  //   console.log('tools is mounted')
+  // },
   methods: {
-    displayTool(item) {
-      this.state.item = item
+    displayTool(payload) {
+      this.state.item = payload
     },
   },
   computed: {
+    ...mapGetters({ Items: 'product/getItems', Stock: 'product/getStock' }),
     tools() {
       return !this.$route.params.tool
     },

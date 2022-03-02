@@ -17,8 +17,7 @@
         a The murder show
       li
         nuxt-link.is-active(to='/newsPaper/movies/theaters') Theaters
-  nuxt-child( @theater="(payload) => $emit('showTheater',payload)" :newTheater='newTheater' @create='create')
-//- @theater='showTheater'
+  nuxt-child( @theater="(payload) => $emit('showTheater',payload)" :newTheater='newTheater' )
 </template>
 <script>
 export default {

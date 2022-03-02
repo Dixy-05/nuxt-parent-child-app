@@ -28,22 +28,26 @@
         nuxt-child(:stock="stock" @addToCart='addToCart' v-if='!loading.isSale')
       .column.is-2
         .cart
-          a.button.is-dark
-            b-icon.mr-1(icon="cart-arrow-down")
-            | Go to Cart
-          section(v-for='(item,index) in state.items')
-            .card.mt-1
-              .card-content
-                  figure.image.is-48x48
-                    img(:src='item.image' alt='Placeholder image')
-                  p {{item.name}} {{item.brand}}
-                  p Price: {{item.price}} $
-                  b-button(type='is-danger' @click='removeFromCart(item,index)') Remove
-          p Total Amount: {{state.amount}} $
-
-
+          nuxt-link(to='/sales/cart')
+            b-button.is-dark(@click='hideMessage')
+              b-icon.mr-1(icon="cart-arrow-down")
+              | Go to Cart
+          //- section(v-for='(item,index) in Cart')
+          //-   .card.mt-1
+          //-     .card-content
+          //-         figure.image.is-48x48
+          //-           img(:src='item.image' alt='Placeholder image')
+          //-         p {{item.name}} {{item.brand}}
+          //-         p Price: {{item.price}} $
+          //-         //- b-button(type='is-danger' @click='removeFromCart(item,index)') Remove
+          //-         span Quantity: {{item.count}}
+          //-         b-button(type='is-danger' @click='removeFromCartBtn(item)') Remove
+          //-         //- b-button(@click='increment(item.id)') increment
+          //- p Total Amount: {{state.amount}} $
+          //- p Stock: {{Stock}}
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'salesPage',
   data() {
@@ -53,7 +57,6 @@ export default {
         amount: 0,
       },
       loading: {
-        // isSale: false,
         isSale: true,
       },
       saleItems: [
@@ -81,14 +84,33 @@ export default {
       },
     }
   },
+  // mounted() {
+  //   console.log('Cart.sales:', this.Cart)
+  // },
+  computed: {
+    ...mapGetters({
+      Stock: 'product/getStock',
+      Cart: 'cart/getCart',
+    }),
+  },
   methods: {
+    ...mapActions({
+      incrementStock: 'product/incrementStock',
+      decrementStock: 'product/decrementStock',
+      removeFromCart: 'cart/removeFromCart',
+    }),
+    removeFromCartBtn(item) {
+      this.removeFromCart(item)
+      for (let i = 0; i < item.count; i++) {
+        this.incrementStock(item)
+      }
+    },
     hideMessage() {
-      // this.loading.isSale = true
       this.loading.isSale = false
     },
-    addToCart(item) {
-      this.stock[item.name]--
-      this.state.items.push(item)
+    addToCart(itemPayload) {
+      this.stock[itemPayload.item.name]--
+      this.state.items.push(itemPayload.item)
       this.add()
     },
     add() {
@@ -96,10 +118,14 @@ export default {
         .map((item) => item.price)
         .reduce((total = 0, num) => total + num)
     },
-    removeFromCart(item, index) {
-      this.stock[item.name]++
-      this.state.items.splice(index, 1)
-      this.state.amount -= item.price
+    // removeFromCart(item, index) {
+    //   this.stock[item.name]++
+    //   this.state.items.splice(index, 1)
+    //   this.state.amount -= item.price
+    // },
+    increment(id) {
+      this.incrementStock(id)
+      // console.log('stock:', this.Stock)
     },
   },
 }
