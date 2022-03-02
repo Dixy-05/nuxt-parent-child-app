@@ -38,4 +38,21 @@ export default () => ({
       stock: 7,
     },
   ],
+  saleItems: [
+    {
+      name: 'sales-tools',
+      title: 'Tools',
+      image: require(`~/assets/tools.jpg`),
+    },
+    {
+      name: 'sales-groceries',
+      title: 'Groceries',
+      image: require(`~/assets/groceries.jpg`),
+    },
+    {
+      name: 'sales-cars',
+      title: 'Cars',
+      image: require(`~/assets/cars.jpg`),
+    },
+  ],
 })

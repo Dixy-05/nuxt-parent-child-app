@@ -25,26 +25,14 @@
             b-image(:src="require('~/assets/shoppingOnline.jpg')" alt='Shopping Online' ratio='601by235' :rounded='false')
 
 
-        nuxt-child(:stock="stock" @addToCart='addToCart' v-if='!loading.isSale')
+        nuxt-child( v-if='!loading.isSale')
       .column.is-2
         .cart
-          nuxt-link(to='/sales/cart')
+          nuxt-link(to='/sales/cart')(v-if='$route.path!==`/sales/cart`')
             b-button.is-dark(@click='hideMessage')
               b-icon.mr-1(icon="cart-arrow-down")
               | Go to Cart
-          //- section(v-for='(item,index) in Cart')
-          //-   .card.mt-1
-          //-     .card-content
-          //-         figure.image.is-48x48
-          //-           img(:src='item.image' alt='Placeholder image')
-          //-         p {{item.name}} {{item.brand}}
-          //-         p Price: {{item.price}} $
-          //-         //- b-button(type='is-danger' @click='removeFromCart(item,index)') Remove
-          //-         span Quantity: {{item.count}}
-          //-         b-button(type='is-danger' @click='removeFromCartBtn(item)') Remove
-          //-         //- b-button(@click='increment(item.id)') increment
-          //- p Total Amount: {{state.amount}} $
-          //- p Stock: {{Stock}}
+              span.tag.is-link.is-normal.ml-1(v-if='cartQuantity!==0') {{cartQuantity}}
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
@@ -52,51 +40,24 @@ export default {
   name: 'salesPage',
   data() {
     return {
-      state: {
-        items: [],
-        amount: 0,
-      },
       loading: {
         isSale: true,
-      },
-      saleItems: [
-        {
-          name: 'sales-tools',
-          title: 'Tools',
-          image: require(`~/assets/tools.jpg`),
-        },
-        {
-          name: 'sales-groceries',
-          title: 'Groceries',
-          image: require(`~/assets/groceries.jpg`),
-        },
-        {
-          name: 'sales-cars',
-          title: 'Cars',
-          image: require(`~/assets/cars.jpg`),
-        },
-      ],
-      stock: {
-        hammer: 14,
-        saw: 9,
-        pliers: 5,
-        screwDrivers: 7,
       },
     }
   },
   // mounted() {
-  //   console.log('Cart.sales:', this.Cart)
+  //   console.log('Cart.sales:', this.$route)
   // },
   computed: {
     ...mapGetters({
-      Stock: 'product/getStock',
       Cart: 'cart/getCart',
+      cartQuantity: 'cart/cartQuantity',
+      saleItems: 'product/getSaleItems',
     }),
   },
   methods: {
     ...mapActions({
       incrementStock: 'product/incrementStock',
-      decrementStock: 'product/decrementStock',
       removeFromCart: 'cart/removeFromCart',
     }),
     removeFromCartBtn(item) {
@@ -107,25 +68,6 @@ export default {
     },
     hideMessage() {
       this.loading.isSale = false
-    },
-    addToCart(itemPayload) {
-      this.stock[itemPayload.item.name]--
-      this.state.items.push(itemPayload.item)
-      this.add()
-    },
-    add() {
-      this.state.amount = this.state.items
-        .map((item) => item.price)
-        .reduce((total = 0, num) => total + num)
-    },
-    // removeFromCart(item, index) {
-    //   this.stock[item.name]++
-    //   this.state.items.splice(index, 1)
-    //   this.state.amount -= item.price
-    // },
-    increment(id) {
-      this.incrementStock(id)
-      // console.log('stock:', this.Stock)
     },
   },
 }

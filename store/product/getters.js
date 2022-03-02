@@ -5,4 +5,7 @@ export default {
   getItems: (state) => {
     return state.items
   },
+  getSaleItems: (state) => {
+    return state.saleItems
+  },
 }

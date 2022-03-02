@@ -18,7 +18,7 @@
                 | Phasellus nec iaculis mauris.
               a @{{item.brand}}
     section(v-if='!tools')
-      nuxt-child(:stock="stock" :item='state.item' @addToCart="(payload)=>$emit('addToCart',payload)")
+      nuxt-child( :item='state.item' )
 
 </template>
 <script>

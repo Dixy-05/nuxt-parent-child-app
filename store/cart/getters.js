@@ -13,4 +13,7 @@ export default {
       return 0
     }
   },
+  cartQuantity: (state) => {
+    return state.cart.length
+  },
 }
