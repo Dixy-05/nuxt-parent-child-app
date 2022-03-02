@@ -2,12 +2,10 @@
 import { find } from 'lodash'
 
 export default {
-  incrementStock({ commit, state }, payload) {
-    const item = find(state.items, { id: payload.id })
-    return commit('INCREMENT_STOCK', item)
+  incrementStock({ commit, state }, item) {
+    return commit('INCREMENT_STOCK', find(state.items, { id: item.id }))
   },
-  decrementStock({ commit, state }, payload) {
-    const item = find(state.items, { id: payload.id })
-    return commit('DECREMENT_STOCK', item)
+  decrementStock({ commit, state }, item) {
+    return commit('DECREMENT_STOCK', find(state.items, { id: item.id }))
   },
 }

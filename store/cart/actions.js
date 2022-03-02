@@ -2,17 +2,48 @@
 import { find } from 'lodash'
 
 export default {
-  addToCart({ commit, state }, item) {
-    const hasItem = find(state.cart, { id: item.id })
-    if (!hasItem) {
-      item.count = 1
+  addToCart({ dispatch, commit, state }, item) {
+    const hasItem = find(state.cartItems, { id: item.id })
+
+    if (hasItem) {
+      dispatch('increment', item)
     } else {
-      item.count++
+      commit('ADD_TO_CART', item)
     }
-    return commit('ADD_TO_CART', item)
   },
   removeFromCart({ commit, state }, payload) {
-    const newCart = state.cart.filter((item) => item !== payload)
+    const newCart = state.cartItems.filter((item) => item !== payload)
     return commit('REMOVE_FROM_CART', newCart)
+  },
+  increment({ dispatch, commit, state }, item) {
+    const lookup = find(state.cartItems, { id: item.id })
+
+    if (!lookup) {
+      dispatch('addToCart', item)
+    } else {
+      commit('INCREMENT', lookup)
+    }
+  },
+  decrement({ commit, state }, item) {
+    const lookup = find(state.cartItems, { id: item.id })
+
+    if (!lookup) {
+      return null
+    } else {
+      commit('DECREMENT', item)
+    }
+  },
+  updateStock({ dispatch, state }, { item, quantity }) {
+    console.log('items update', item, quantity)
+    const lookup = find(state.cartItems, { id: item.id })
+
+    if (!lookup) {
+      dispatch('addToCart')
+    } else if (lookup.quantity < quantity) {
+      dispatch('increment', item)
+    } else {
+      console.log('down')
+      dispatch('decrement', item)
+    }
   },
 }

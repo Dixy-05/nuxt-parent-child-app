@@ -1,4 +1,4 @@
 // cart state
 export default () => ({
-  cart: [],
+  cartItems: [],
 })
