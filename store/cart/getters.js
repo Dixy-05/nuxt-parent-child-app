@@ -1,8 +1,8 @@
-import { map, sum, uniq } from 'lodash'
+import { map, sum } from 'lodash'
 
 export default {
   getCart: (state) => {
-    return uniq(state.cartItems)
+    return state.cartItems
   },
 
   cartTotalAmount: (state) => {

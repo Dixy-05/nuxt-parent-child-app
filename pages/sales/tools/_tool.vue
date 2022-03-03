@@ -14,35 +14,25 @@
           | Phasellus nec iaculis mauris.
           a @{{item.brand}}
           p Price: {{item.price}} $
-          p(v-if='item.stock!=0') In Stock: {{item.stock}}
-          p(v-if='item.stock==0') Sorry, we are out of stock at the moment.
+          p(v-if='Stock(item)!=0') In Stock: {{Stock(item)}}
+          p(v-if='Stock(item)==0') Sorry, we are out of stock at the moment.
           br
-          b-button(@click="addToCartBtn(item)" type="is-success" :disabled='item.stock==0') Add To Cart
-          //- b-button(@click="$emit('addToCart',item)" type="is-success") Add To Cart
+          b-button(@click="addToCart(item)" type="is-success" :disabled='Stock(item)==0') Add To Cart
 </template>
 <script>
-import { capitalize } from 'lodash'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'toolPage',
-  props: ['item', 'stock'],
-  // mounted() {
-  //   console.log('tool is mounted')
-  // },
+  props: ['item'],
   methods: {
     ...mapActions({
       addToCart: 'cart/addToCart',
-      decrementStock: 'product/decrementStock',
     }),
-    addToCartBtn(item) {
-      this.addToCart(item)
-      this.decrementStock(item)
-    },
   },
   computed: {
-    tool() {
-      return capitalize(this.$route.params.tool)
-    },
+    ...mapGetters({
+      Stock: 'product/getItemStock',
+    }),
   },
 }
 </script>

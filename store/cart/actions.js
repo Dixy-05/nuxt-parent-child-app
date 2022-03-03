@@ -9,40 +9,43 @@ export default {
       dispatch('increment', item)
     } else {
       commit('ADD_TO_CART', item)
+      dispatch('product/decrementStock', item, { root: true }) // root is vuex setup for dispatch between stores
     }
   },
-  removeFromCart({ commit, state }, payload) {
-    const newCart = state.cartItems.filter((item) => item !== payload)
+  removeFromCart({ commit, state, dispatch }, item) {
+    for (let i = 0; i < item.quantity; i++) {
+      dispatch('product/incrementStock', item, { root: true }) // root is vuex setup for dispatch between stores
+    }
+    const newCart = state.cartItems.filter((cartItem) => cartItem !== item)
     return commit('REMOVE_FROM_CART', newCart)
   },
   increment({ dispatch, commit, state }, item) {
     const lookup = find(state.cartItems, { id: item.id })
-
     if (!lookup) {
       dispatch('addToCart', item)
     } else {
       commit('INCREMENT', lookup)
+      dispatch('product/decrementStock', item, { root: true }) // root is vuex setup for dispatch between stores
     }
   },
-  decrement({ commit, state }, item) {
+  decrement({ dispatch, commit, state }, item) {
     const lookup = find(state.cartItems, { id: item.id })
 
     if (!lookup) {
       return null
     } else {
       commit('DECREMENT', item)
+      dispatch('product/incrementStock', item, { root: true }) // root is vuex setup for dispatch between stores
     }
   },
-  updateStock({ dispatch, state }, { item, quantity }) {
-    console.log('items update', item, quantity)
+  updateQuantity({ dispatch, state }, { item, quantity }) {
     const lookup = find(state.cartItems, { id: item.id })
 
     if (!lookup) {
-      dispatch('addToCart')
+      dispatch('addToCart', item)
     } else if (lookup.quantity < quantity) {
       dispatch('increment', item)
     } else {
-      console.log('down')
       dispatch('decrement', item)
     }
   },

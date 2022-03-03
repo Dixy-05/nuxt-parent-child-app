@@ -2,10 +2,21 @@
 import { find } from 'lodash'
 
 export default {
-  incrementStock({ commit, state }, item) {
-    return commit('INCREMENT_STOCK', find(state.items, { id: item.id }))
+  incrementStock({ commit, state, dispatch }, item) {
+    const lookup = find(state.items, { id: item.id })
+
+    if (!lookup) {
+      console.log('This item was not found')
+      return
+    }
+    return commit('INCREMENT_STOCK', lookup)
   },
   decrementStock({ commit, state }, item) {
-    return commit('DECREMENT_STOCK', find(state.items, { id: item.id }))
+    const lookup = find(state.items, { id: item.id })
+    if (!lookup) {
+      console.log('This item was not found')
+      return
+    }
+    return commit('DECREMENT_STOCK', lookup)
   },
 }
