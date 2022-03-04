@@ -1,9 +1,9 @@
 <template lang="pug">
-  div
-    h1 This is the main news paper !!
+div
+  h1 This is the main news paper !!
 </template>
 <script>
 export default {
-  name: 'indexPage',
+  name: 'IndexPage',
 }
 </script>

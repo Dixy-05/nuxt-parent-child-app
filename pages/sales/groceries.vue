@@ -1,9 +1,9 @@
 <template lang="pug">
-  .groceries
-    p Groceries Page
+.groceries
+  p Groceries Page
 </template>
 <script>
 export default {
-  name: 'groceriesPage',
+  name: 'GroceriesPage',
 }
 </script>
