@@ -9,7 +9,10 @@
 export default {
   name: 'EconomyPage',
   props: {
-    price: Number,
+    price: {
+      type: Number,
+      required: true,
+    },
   },
 }
 </script>

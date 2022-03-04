@@ -23,7 +23,8 @@
 export default {
   name: 'MoviesPage',
   props: {
-    newTheater: String,
+    newTheater: {
+      type: String, default: '', required: true},
   },
 }
 </script>

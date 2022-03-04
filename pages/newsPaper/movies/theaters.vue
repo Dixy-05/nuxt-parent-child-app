@@ -10,7 +10,8 @@
 export default {
   name: 'TheaterPage',
   props: {
-    newTheater: String,
+    newTheater: {
+      type: String, default: '', required: true},
   },
   data() {
     return {

@@ -25,7 +25,6 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'ToolsPage',
-  props: ['stock'],
   data() {
     return {
       state: {

@@ -23,7 +23,15 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'ToolPage',
-  props: ['item'],
+  props: {
+    item: {
+      required:true,
+      type:Object,
+      default() {
+        return  {}
+      }
+    }
+  },
   computed: {
     ...mapGetters({
       Stock: 'product/getItemStock',
