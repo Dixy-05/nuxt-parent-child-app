@@ -1,11 +1,11 @@
 <template lang="pug">
-  .Objective-layout.default-layout
-    navbar
-    .container
-      nuxt
-    .container
-      footer.has-text-centered
-          footer-content
+.objective-layout.default-layout
+  navbar
+  .container
+    nuxt
+  .container
+    footer.has-text-centered
+        footer-content
 </template>
 
 <script>

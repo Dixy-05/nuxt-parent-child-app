@@ -5,7 +5,7 @@
       | New Movies
     ul.menu-list
       li
-        a Anaconda 5
+      a Anaconda 5
       li
         a Rambo No bullets
     p.menu-label
@@ -21,9 +21,10 @@
 </template>
 <script>
 export default {
-  name: 'moviesPage',
+  name: 'MoviesPage',
   props: {
-    newTheater: String,
+    newTheater: {
+      type: String, default: '', required: true},
   },
 }
 </script>

@@ -1,13 +1,13 @@
 <template lang="pug">
-    article.message(:class='color')
-      .message-header
-        p {{title}}
-      .message-body
-        | {{text}}.
+article.message(:class='color')
+  .message-header
+    p {{title}}
+  .message-body
+    | {{text}}.
 </template>
 <script>
 export default {
-  name: 'articleComponent',
+  name: 'ArticleComponent',
   props: {
     title: String,
     text: String,

@@ -8,6 +8,6 @@ export default {
   },
   getItemStock: (state) => (item) => {
     const lookup = find(state.items, { id: item.id })
-    return lookup.inStockQuantity
+    return lookup?.inStockQuantity || 0
   },
 }

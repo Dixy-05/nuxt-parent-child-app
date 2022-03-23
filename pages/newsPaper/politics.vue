@@ -1,13 +1,13 @@
 <template lang="pug">
-  .politics
-    h1.title World politics
-    P.subTitle War between Russia and Ukraine!!
-    b-button(type='is-primary' @click='moreNews') More News
-    p.subTitle(v-if='more') Some more political news !!
+.politics
+  h1.title World politics
+  P.subTitle War between Russia and Ukraine!!
+  b-button(type='is-primary' @click='moreNews') More News
+  p.subTitle(v-if='more') Some more political news !!
 </template>
 <script>
 export default {
-  name: 'politicsPage',
+  name: 'PoliticsPage',
   data() {
     return {
       more: false,

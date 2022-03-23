@@ -1,15 +1,18 @@
 <template lang="pug">
-  .economy
-    h1.title World economy
-    P.subTitle Gas price keeps increasing!!
-    h2 Gas Price: {{price}}
-    b-button(@click="$emit('decrease')" type='is-danger') Decrease Price
+.economy
+  h1.title World economy
+  P.subTitle Gas price keeps increasing!!
+  h2 Gas Price: {{price}}
+  b-button(@click="$emit('decrease')" type='is-danger') Decrease Price
 </template>
 <script>
 export default {
-  name: 'economyPage',
+  name: 'EconomyPage',
   props: {
-    price: Number,
+    price: {
+      type: Number,
+      required: true,
+    },
   },
 }
 </script>
